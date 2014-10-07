@@ -1,7 +1,6 @@
-/*	MoveNode() takes two lists, removes the front node from the second list and pushes
- *	it onto the front of the first
+/*	Given two lists, merge their nodes together to make one list, taking nodes alternately
+ *	between the two lists
  */
-
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -15,13 +14,14 @@ void print(struct node *head);
 struct node *build(int data[],int len);
 void push(struct node **headref,int data);
 void movenode(struct node **dref,struct node **sref);
+struct node *shufflemerge(struct node *a,struct node *b);
 
 main()
 {
 	int len;
-	int dataA[]={1,2,3};
-	int dataB[]={5,6,7};
-	struct node*a,*b;
+	int dataA[]={1,2,3,4,5};
+	int dataB[]={45,4,36,98,45};
+	struct node*a,*b,*mrglist;
 
 	len=sizeof(dataA)/sizeof(int);
 	a=build(dataA,len);
@@ -34,16 +34,41 @@ main()
 	printf("\n list B :\n");
 	print(b);
 
-	movenode(&a,&b);
+	mrglist=shufflemerge(a,b);
 
-	printf("\n\t\taftr moving\n\n");
-	printf("list A :\n");
-	print(a);
-	printf("\nlist B :\n");
-	print(b);
+	printf("\nnew merged list is :\n");
+	print(mrglist);
 }
 
-void movenode(struct node **dref,struct node **sref)/* Take the node from the front of the source, and move it to the front of the dest. */
+/*
+Merge the nodes of the two lists into a single list taking a node
+alternately from each list, and return the new list.
+*/
+struct node *shufflemerge(struct node *a,struct node *b)
+{
+	int i;
+	struct node dummy,*tail;
+
+	dummy.next=NULL;
+	tail=&dummy;
+
+	for(i=0;a!=NULL || b!=NULL;++i){
+		if(a!=NULL && b!=NULL){
+			if(i%2==0)
+				movenode(&(tail->next),&a);
+			else
+				movenode(&(tail->next),&b);
+		}
+		else
+			a==NULL ? movenode(&(tail->next),&b) : movenode(&(tail->next),&a);
+
+		tail=tail->next;
+	}
+	return dummy.next;
+}
+
+/* Take the node from the front of the source, and move it to the front of the dest. */
+void movenode(struct node **dref,struct node **sref)
 {
 	struct node *tmp;
 
@@ -90,7 +115,6 @@ void print(struct node *head)					/* print the list */
 		printf("\n\t\t<empty>\n\n");
 		return;
 	}
-
 
 	while(current!=NULL){
 		printf("\t%d",current->data);

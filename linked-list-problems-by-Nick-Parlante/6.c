@@ -85,6 +85,12 @@ void print(struct node *head)					/* print the list */
 {
 	struct node *current=head;
 
+	if(current==NULL){
+		printf("\n\t\t<empty>\n\n");
+		return;
+	}
+
+
 	printf("\n\n");
 	while(current!=NULL){
 		printf("\t%d",current->data);

@@ -1,6 +1,7 @@
-/*	MoveNode() takes two lists, removes the front node from the second list and pushes
- *	it onto the front of the first
- */
+/*	Write a SortedMerge() function that takes two lists, each of which is sorted in increasing
+ *	order, and merges the two together into one list which is in increasing order.
+ *	SortedMerge() should return the new list
+*/
 
 
 #include<stdio.h>
@@ -15,13 +16,15 @@ void print(struct node *head);
 struct node *build(int data[],int len);
 void push(struct node **headref,int data);
 void movenode(struct node **dref,struct node **sref);
+struct node *sortedmrg(struct node *a,struct node *b);
 
 main()
 {
+	
 	int len;
-	int dataA[]={1,2,3};
-	int dataB[]={5,6,7};
-	struct node*a,*b;
+	int dataA[]={1,5,8};
+	int dataB[]={2,4,7};
+	struct node*a,*b,*mrglist;
 
 	len=sizeof(dataA)/sizeof(int);
 	a=build(dataA,len);
@@ -34,13 +37,33 @@ main()
 	printf("\n list B :\n");
 	print(b);
 
-	movenode(&a,&b);
+	mrglist=sortedmrg(a,b);
 
-	printf("\n\t\taftr moving\n\n");
-	printf("list A :\n");
-	print(a);
-	printf("\nlist B :\n");
-	print(b);
+	printf("\nlist aftr merging :\n");
+	print(mrglist);
+}
+
+struct node *sortedmrg(struct node *a,struct node *b)
+{
+	int i;
+	struct node dummy,*tail;
+
+	dummy.next=NULL;
+	tail=&dummy;
+
+	for(i=0;a!=NULL || b!=NULL;++i){
+		if(a!=NULL && b!=NULL){
+			if(a->data < b->data)
+				movenode(&(tail->next),&a);
+			else
+				movenode(&(tail->next),&b);
+		}
+		else
+			a==NULL ? movenode(&(tail->next),&b) : movenode(&(tail->next),&a);
+
+		tail=tail->next;
+	}
+	return dummy.next;
 }
 
 void movenode(struct node **dref,struct node **sref)/* Take the node from the front of the source, and move it to the front of the dest. */
