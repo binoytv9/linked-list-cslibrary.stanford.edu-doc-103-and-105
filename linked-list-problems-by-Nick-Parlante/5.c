@@ -17,7 +17,7 @@ void insertnth(struct node **headref,int index,int data);
 main()
 {
 	int index,data;
-	struct node *list=build();
+	struct node *list=build();	//list=NULL;
 
 	printf("\nenter the index : ");
 	scanf("%d",&index);
@@ -31,7 +31,7 @@ main()
 		print(list);
 	}
 	else
-		printf("\n\nerror : index out of bound!!!\n\n");
+		printf("\n\nerror : index out of range!!!\n\n");
 }
 
 void insertnth(struct node **headref,int index,int data)	/* insert new node with 'data' at 'index' in 'list' */

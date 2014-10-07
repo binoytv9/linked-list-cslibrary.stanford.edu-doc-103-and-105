@@ -43,7 +43,7 @@ void deletelist(struct node **headref)		/* deallocate entire list	*/
 		free(current);
 		current=current->next;
 	}
-	*headref=current;
+	*headref=NULL;				/* setting HEAD pointer to NULL */
 }
 		
 

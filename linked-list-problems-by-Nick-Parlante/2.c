@@ -24,13 +24,13 @@ main()
 	printf("\n\nenter the index : ");
 	scanf("%d",&index);
 
-	if((index<0) || (index>=length(list)))	/* check whether index is in bound */
-		printf("\n\nerror : index out of bound!!!\n\n");
+	if((index<0) || (index>=length(list)))	/* check whether index is within range */
+		printf("\n\nerror : index out of range!!!\n\n");
 	else
 		printf("\ndata stored in index '%d' is %d\n\n",index,getnth(list,index));
 }
 
-int getnth(struct node *head,int index)		/* returns the data value stored in the node at index position */
+int getnth(struct node *head,int index)		/* returns the 'data' value stored in the node at 'index' position */
 {
 	struct node *current=head;
 

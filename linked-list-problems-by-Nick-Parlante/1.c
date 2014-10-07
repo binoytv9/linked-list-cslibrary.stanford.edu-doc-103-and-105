@@ -1,4 +1,4 @@
-/*	Count() function that counts the number of times a given int occurs in a list		*/
+/*	Count() function that counts the number of times a given int (data) occurs in a list		*/
 
 #include<stdio.h>
 #include<stdlib.h>
